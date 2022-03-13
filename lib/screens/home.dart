@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[700],
-        title: const Text("Git Study "),
+        title: const Text("Git Study"),
       ),
       body: container,
       drawer: Drawer(

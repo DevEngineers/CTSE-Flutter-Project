@@ -1,4 +1,5 @@
 import 'package:ctse_flutter_project/screens/home.dart';
+import 'package:ctse_flutter_project/screens/quiz.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       initialRoute: Home.routeName,
       routes: {
         Home.routeName: ((context) => const Home()),
+        Quiz.routeName: ((context) => const Quiz())
       },
     );
   }

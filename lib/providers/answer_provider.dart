@@ -4,9 +4,11 @@ import 'package:flutter/cupertino.dart';
 
 class AnwserProvider extends ChangeNotifier {
   late AnswerService _answerServie;
+  final List<Answer> _storedAnswers = [];
   final List<Answer> _answers = [];
 
   List<Answer> get answers => _answers;
+  List<Answer> get stordAnswers => _storedAnswers;
 
   AnwserProvider() {
     _answerServie = const AnswerService();
@@ -17,7 +19,7 @@ class AnwserProvider extends ChangeNotifier {
         Answer(id: '', questionId: question, topicId: topic, answer: answer);
 
     final storedAnswerIndex =
-        _answers.indexWhere((element) => element.questionId == question);
+        _answers.indexWhere((answer) => answer.questionId == question);
 
     if (storedAnswerIndex != -1) {
       _answers.removeAt(storedAnswerIndex);
@@ -25,5 +27,20 @@ class AnwserProvider extends ChangeNotifier {
 
     _answers.add(userAnswer);
     notifyListeners();
+  }
+
+  void submitUserAnswers(String topic) {
+    List<Answer> filteredAnswers =
+        _answers.where((element) => element.topicId == topic).toList();
+
+    final response = _answerServie.submitAnswers(topic, filteredAnswers);
+
+    response.then((value) {
+      if (value == true) {
+        _storedAnswers.addAll(_answers);
+        _answers.clear();
+        notifyListeners();
+      }
+    });
   }
 }

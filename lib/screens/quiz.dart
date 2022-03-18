@@ -1,65 +1,32 @@
 import 'package:ctse_flutter_project/components/custom_text.dart';
+import 'package:ctse_flutter_project/model/answer.dart';
+import 'package:ctse_flutter_project/providers/answer_provider.dart';
+import 'package:ctse_flutter_project/providers/question_provider.dart';
+import 'package:ctse_flutter_project/services/QuestionService.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import '../components/radio_button.dart';
 import '../model/question.dart';
-
-const List<Question> q = [
-  Question(
-      id: '1',
-      question: 'What is the git branching?',
-      answers: ['1', '2'],
-      correctAnswer: '2'),
-  Question(
-      id: '2',
-      question: 'What is the git branching?2',
-      answers: ['1', '2'],
-      correctAnswer: '1')
-];
-
-class RadioButton extends StatelessWidget {
-  final String answer;
-  final String groupValue;
-  const RadioButton({Key? key, required this.answer, required this.groupValue})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
-      height: 70,
-      child: Card(
-        elevation: 3,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ListTile(
-              title: CustomText(text: answer),
-              leading: Radio(
-                value: answer,
-                groupValue: groupValue,
-                onChanged: (String? value) {},
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 class QuizQuestion extends StatefulWidget {
   final Question question;
   final int questionNo;
+  final Function onChange;
 
-  const QuizQuestion(
-      {Key? key, required this.question, required this.questionNo})
-      : super(key: key);
+  const QuizQuestion({
+    Key? key,
+    required this.question,
+    required this.questionNo,
+    required this.onChange,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _QuizQuestion();
 }
 
 class _QuizQuestion extends State<QuizQuestion> {
+  String _answer = '';
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -69,7 +36,7 @@ class _QuizQuestion extends State<QuizQuestion> {
         Padding(
           padding: const EdgeInsets.all(10),
           child: CustomText(
-            text: 'Question ${widget.questionNo}',
+            text: 'Question ${widget.questionNo + 1}',
             color: 'grey',
             type: 'bodyText',
           ),
@@ -88,8 +55,16 @@ class _QuizQuestion extends State<QuizQuestion> {
             itemCount: widget.question.answers.length,
             itemBuilder: (context, index) {
               return RadioButton(
-                  answer: widget.question.answers.elementAt(index),
-                  groupValue: '');
+                answer: widget.question.answers.elementAt(index),
+                groupValue: _answer,
+                onChange: (value) {
+                  setState(() {
+                    _answer = value;
+                  });
+                  widget.onChange(
+                      widget.question.topicId, widget.question.id, value);
+                },
+              );
             },
           ),
         )
@@ -98,12 +73,28 @@ class _QuizQuestion extends State<QuizQuestion> {
   }
 }
 
-class Quiz extends StatelessWidget {
+class Quiz extends StatefulWidget {
   static const String routeName = '/quiz';
+
   const Quiz({Key? key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _Quiz();
+}
+
+class _Quiz extends State<Quiz> {
+  void getSelectedAnswers(String topic, String question, String answer) {
+    print(question);
+    Provider.of<AnwserProvider>(context, listen: false)
+        .storeUserAnswer(topic, question, answer);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final Set<Question> _quizQuestions =
+        Provider.of<QuestionProvider>(context).questions;
+    List<Answer> items = Provider.of<AnwserProvider>(context).answers;
+    print(items);
     return Scaffold(
         appBar: AppBar(title: const Text('Quiz')),
         body: Column(
@@ -118,11 +109,12 @@ class Quiz extends StatelessWidget {
                 )),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: q.length,
+              itemCount: _quizQuestions.length,
               itemBuilder: (context, index) {
                 return QuizQuestion(
-                  question: q.elementAt(index),
-                  questionNo: index+1,
+                  question: _quizQuestions.elementAt(index),
+                  questionNo: index,
+                  onChange: getSelectedAnswers,
                 );
               },
             ),

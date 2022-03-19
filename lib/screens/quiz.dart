@@ -26,6 +26,7 @@ class QuizQuestion extends StatefulWidget {
 
 class _QuizQuestion extends State<QuizQuestion> {
   String _answer = '';
+  List<bool> isSelected = List.filled(5, false);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class _QuizQuestion extends State<QuizQuestion> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.fromLTRB(10, 10, 0, 10),
           child: CustomText(
               text: widget.question.question,
               color: 'black',
@@ -60,10 +61,13 @@ class _QuizQuestion extends State<QuizQuestion> {
                 onChange: (value) {
                   setState(() {
                     _answer = value;
+                    isSelected = List.filled(5, false);
+                    isSelected[index] = true;
                   });
                   widget.onChange(
                       widget.question.topicId, widget.question.id, value);
                 },
+                isSelected: isSelected[index],
               );
             },
           ),
@@ -131,7 +135,7 @@ class _Quiz extends State<Quiz> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(10),
                   child: CustomText(
                     text: 'Learn Basic Git',
                     type: 'headText',

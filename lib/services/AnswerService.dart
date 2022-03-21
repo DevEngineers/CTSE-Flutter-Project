@@ -15,7 +15,6 @@ class AnswerService {
         body: json.encode(answers));
 
     if (response.statusCode == 200) {
-      //return jsonDecode(response.body)['age'];
       return true;
     }
     throw Exception('Error in getting the age');

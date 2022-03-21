@@ -29,11 +29,8 @@ class AnwserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void submitUserAnswers(String topic) {
-    List<Answer> filteredAnswers =
-        _answers.where((element) => element.topicId == topic).toList();
-
-    final response = _answerServie.submitAnswers(topic, filteredAnswers);
+  void submitUserAnswers() {
+    final response = _answerServie.submitAnswers(_answers);
 
     response.then((value) {
       if (value == true) {

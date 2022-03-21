@@ -1,6 +1,5 @@
 import 'package:ctse_flutter_project/components/button.dart';
 import 'package:ctse_flutter_project/components/custom_text.dart';
-import 'package:ctse_flutter_project/model/answer.dart';
 import 'package:ctse_flutter_project/providers/answer_provider.dart';
 import 'package:ctse_flutter_project/providers/question_provider.dart';
 import 'package:flutter/material.dart';
@@ -103,8 +102,26 @@ class _Quiz extends State<Quiz> {
         Provider.of<AnwserProvider>(context, listen: false).answers.length;
 
     if (questionsLenght == answersLenght) {
-      Provider.of<AnwserProvider>(context, listen: false)
-          .submitUserAnswers(topic);
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Learn Git'),
+                content: const Text('Are you sure to submit'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Provider.of<AnwserProvider>(context, listen: false) //TO DO: Add Success Message after submission
+                          .submitUserAnswers();
+                      Navigator.pop(context, 'Ok');
+                    },
+                    child: const Text('Submit'),
+                  ),
+                ],
+              ));
     } else {
       showDialog<String>(
         context: context,

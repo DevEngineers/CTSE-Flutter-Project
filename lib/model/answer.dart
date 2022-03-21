@@ -9,4 +9,8 @@ class Answer {
       required this.questionId,
       required this.topicId,
       required this.answer});
+
+  Map<String, dynamic> toJson() =>
+      {'topicId': topicId, 'questionId': questionId, 'answer': answer};
+
 }

@@ -106,12 +106,12 @@ class _QuizQuestion extends State<QuizQuestion> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.fromLTRB(5, 8, 0, 8),
                     child: CustomText(
                       text: isCorrect
                           ? 'Your answer is correct'
                           : 'Your answer is incorrect',
-                      type: 'bodyTextTwo',
+                      type: 'label',
                       color: isCorrect ? 'green' : 'red',
                     ),
                   )

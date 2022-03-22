@@ -3,9 +3,11 @@ import 'package:ctse_flutter_project/providers/question_provider.dart';
 import 'package:ctse_flutter_project/screens/home.dart';
 import 'package:ctse_flutter_project/screens/quiz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(const MyApp());
 }
 

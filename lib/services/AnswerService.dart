@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import '../model/answer.dart';
 
 class AnswerService {
-  static const String endpoint = "http://192.168.1.4:5000/answer";
+  static String endpoint = '${dotenv.env['API_URL']}/answer';
   const AnswerService();
 
   Future<bool?> submitAnswers(List<Answer> answers) async {

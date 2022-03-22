@@ -14,9 +14,14 @@ class AnwserProvider extends ChangeNotifier {
     _answerServie = const AnswerService();
   }
 
-  void storeUserAnswer(String topic, String question, String answer) {
-    Answer userAnswer =
-        Answer(id: '', questionId: question, topicId: topic, answer: answer);
+  void storeUserAnswer(
+      String topic, String question, String answer, bool isCorrect) {
+    Answer userAnswer = Answer(
+        id: '',
+        questionId: question,
+        topicId: topic,
+        answer: answer,
+        isCorrect: isCorrect);
 
     final storedAnswerIndex =
         _answers.indexWhere((answer) => answer.questionId == question);

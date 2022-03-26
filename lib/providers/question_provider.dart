@@ -20,10 +20,11 @@ class QuestionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //TO DO: When open the quiz page we should run this method to only get topic questions on intialState method
-  void getQuestionsByTopic(String topicId) async {
-    final questions = await _questionServie.getQuestions();
-    _questions.addAll(questions!);
-    notifyListeners();
+  Set<Question> getQuestionsByTopic(String topicId) {
+    Iterable<Question> questions = _questions
+        .where((element) => element.topicId == topicId)
+        .toSet()
+        .toList();
+    return questions.toSet();
   }
 }

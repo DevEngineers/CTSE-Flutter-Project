@@ -52,4 +52,13 @@ class AnwserProvider extends ChangeNotifier {
       }
     });
   }
+
+  List<Answer> getCorrectAnswersByTopic(String topicId) {
+    Iterable<Answer> answers = _storedAnswers
+        .where((element) =>
+            element.topicId == topicId && element.isCorrect == true)
+        .toSet()
+        .toList();
+    return answers.toList();
+  }
 }

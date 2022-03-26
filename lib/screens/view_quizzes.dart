@@ -32,6 +32,15 @@ class _ViewQuizzes extends State<ViewQuizzes> {
     return '$completedQuestionsLength/$questionsLength';
   }
 
+  String getCompletedQuestionsByTopic(
+      Set<Question> questions, List<Answer> answers) {
+    int questionsLength =
+        questions.map((e) => e.topicId).toSet().toList().length;
+    int completedQuestionsLength =
+        answers.map((e) => e.questionId).toSet().toList().length;
+    return '$completedQuestionsLength/$questionsLength';
+  }
+
   int getProgress(List<Answer> answers) {
     int topicsLength = 5; // TO DO: need to get the length of all topics
     int completedtopicsLength =
@@ -44,8 +53,8 @@ class _ViewQuizzes extends State<ViewQuizzes> {
     print('Reset Button Clicked');
   }
 
-  void onRetakeQuiz() {
-    print('Retake Button Clicked');
+  void onRetakeQuiz(String topicId) {
+    print(topicId);
   }
 
   @override
@@ -65,12 +74,17 @@ class _ViewQuizzes extends State<ViewQuizzes> {
             completedQuestions: getCompletedQuestions(_quizQuestions, _answers),
             onReset: onResetAll,
           ),
-          QuizView(
-            topic: 'Learn Git',
-            completedQuestions: '1/5',
-            noOfQuestions: 5,
-            onRetakeQuiz: onRetakeQuiz,
-          )
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              return QuizView(
+                topicId: '6238c42e523b9f9d1325096d',
+                topic: 'Learn Git',
+                onRetakeQuiz: onRetakeQuiz,
+              );
+            },
+          ),
         ],
       ),
     );
@@ -217,23 +231,31 @@ class StatusBox extends StatelessWidget {
 }
 
 class QuizView extends StatelessWidget {
-  //TO DO: add topic id or topic object here;
   final String topic;
-  final String completedQuestions;
-  final int noOfQuestions;
+  final String topicId;
   final Function onRetakeQuiz;
 
   const QuizView(
       {Key? key,
       required this.topic,
-      required this.completedQuestions,
-      required this.noOfQuestions,
-      required this.onRetakeQuiz})
+      required this.onRetakeQuiz,
+      required this.topicId})
       : super(key: key);
+
+  String getScore(int questionCount, int currectAnswerCount) {
+    int score = ((currectAnswerCount / questionCount) * 100).toInt();
+    return '$score% Score';
+  }
 
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width;
+    final int noOfQuestions = Provider.of<QuestionProvider>(context)
+        .getQuestionsByTopic(topicId)
+        .length;
+    final int currectAnswers = Provider.of<AnwserProvider>(context)
+        .getCorrectAnswersByTopic(topicId)
+        .length;
 
     return SizedBox(
         width: width,
@@ -264,22 +286,22 @@ class QuizView extends StatelessWidget {
                     color: 'white',
                   ),
                 ),
-                const Align(
+                Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: CustomText(
-                        text: '90% Score',
+                        text: getScore(noOfQuestions, currectAnswers),
                         type: 'bodyText',
                         color: 'white',
                       ),
                     )),
-                const Align(
+                Align(
                     alignment: Alignment.centerRight,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: CustomText(
-                        text: '3/5 Currect Answer',
+                        text: '$currectAnswers/$noOfQuestions Currect Answer',
                         type: 'bodyText',
                         color: 'white',
                       ),
@@ -290,7 +312,7 @@ class QuizView extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(0, 5, 20, 0),
                       child: Button(
                         title: 'Re-take',
-                        onPress: () => onRetakeQuiz(),
+                        onPress: () => onRetakeQuiz(topicId),
                         width: 100,
                       ),
                     )),

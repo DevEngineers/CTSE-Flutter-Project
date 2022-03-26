@@ -27,7 +27,7 @@ class QuestionServie {
   static const String endpoint = "";
   const QuestionServie();
 
-  Future<List<Question>?> getQuestions(String topicId) async {
+  Future<List<Question>?> getQuestions() async {
     // final response = await get(Uri.parse(endpoint).replace(queryParameters: {
     //   "topic": topicId,
     // }));

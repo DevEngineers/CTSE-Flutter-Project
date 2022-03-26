@@ -8,10 +8,17 @@ class AnwserProvider extends ChangeNotifier {
   final List<Answer> _answers = [];
 
   List<Answer> get answers => _answers;
-  List<Answer> get stordAnswers => _storedAnswers;
+  List<Answer> get storedAnswers => _storedAnswers;
 
   AnwserProvider() {
     _answerServie = const AnswerService();
+    getStoredAnswers();
+  }
+
+  void getStoredAnswers() async {
+    final answers = await _answerServie.getStoredAnswers();
+    _storedAnswers.addAll(answers);
+    notifyListeners();
   }
 
   void storeUserAnswer(

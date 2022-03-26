@@ -4,8 +4,10 @@ class CustomText extends StatelessWidget {
   final String text;
   final String? type;
   final String? color;
+  final FontWeight? fontWeight;
 
-  const CustomText({Key? key, required this.text, this.type, this.color})
+  const CustomText(
+      {Key? key, required this.text, this.type, this.color, this.fontWeight})
       : super(key: key);
 
   double getTextType() {
@@ -54,6 +56,9 @@ class CustomText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(text,
-        style: TextStyle(fontSize: getTextType(), color: getTextColor()));
+        style: TextStyle(
+            fontSize: getTextType(),
+            color: getTextColor(),
+            fontWeight: fontWeight));
   }
 }

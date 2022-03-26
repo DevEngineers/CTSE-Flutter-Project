@@ -42,6 +42,10 @@ class CustomText extends StatelessWidget {
       return Colors.white;
     } else if (color == 'gray') {
       return Colors.grey;
+    } else if (color == 'green') {
+      return Colors.green;
+    } else if (color == 'red') {
+      return Colors.red;
     } else {
       return Colors.black;
     }

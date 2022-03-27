@@ -3,7 +3,7 @@ import 'package:ctse_flutter_project/services/AnswerService.dart';
 import 'package:flutter/cupertino.dart';
 
 class AnwserProvider extends ChangeNotifier {
-  late AnswerService _answerServie;
+  late AnswerService _answerService;
   final List<Answer> _storedAnswers = [];
   final List<Answer> _answers = [];
 
@@ -11,12 +11,12 @@ class AnwserProvider extends ChangeNotifier {
   List<Answer> get storedAnswers => _storedAnswers;
 
   AnwserProvider() {
-    _answerServie = const AnswerService();
+    _answerService = const AnswerService();
     getStoredAnswers();
   }
 
   void getStoredAnswers() async {
-    final answers = await _answerServie.getStoredAnswers();
+    final answers = await _answerService.getStoredAnswers();
     _storedAnswers.addAll(answers);
     notifyListeners();
   }
@@ -42,7 +42,7 @@ class AnwserProvider extends ChangeNotifier {
   }
 
   void submitUserAnswers() {
-    final response = _answerServie.submitAnswers(_answers);
+    final response = _answerService.submitAnswers(_answers);
 
     response.then((value) {
       if (value == true) {
@@ -76,7 +76,7 @@ class AnwserProvider extends ChangeNotifier {
   }
 
   void restAllQuizzes() {
-    final response = _answerServie.deleteAllQuizzes();
+    final response = _answerService.deleteAllQuizzes();
 
     response.then((value) {
       if (value == true) {
@@ -85,5 +85,11 @@ class AnwserProvider extends ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  List<String> getTopicIds() {
+    List<String> topicIds =
+        _storedAnswers.map((element) => element.topicId).toSet().toList();
+    return topicIds.toList();
   }
 }

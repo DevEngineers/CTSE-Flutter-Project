@@ -1,4 +1,5 @@
 import 'package:ctse_flutter_project/providers/answer_provider.dart';
+import 'package:ctse_flutter_project/providers/content_provider.dart';
 import 'package:ctse_flutter_project/providers/question_provider.dart';
 import 'package:ctse_flutter_project/screens/home.dart';
 import 'package:ctse_flutter_project/screens/quiz.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<AnwserProvider>(
             create: (context) => AnwserProvider(),
+          ),
+          ChangeNotifierProvider<ContentProvider>(
+            create: (context) => ContentProvider(),
           ),
         ],
         child: MaterialApp(

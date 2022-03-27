@@ -184,21 +184,21 @@ class _QuizQuestion extends State<QuizQuestion> {
   List<bool> isSelected = List.filled(5, false);
   bool isCorrect = false;
 
-  void onChange(value, index) {
+  void onChange(answer, index) {
     setState(() {
-      _answer = value;
+      _answer = answer;
       isSelected = List.filled(5, false);
       isSelected[index] = true;
     });
 
-    if (value == widget.question.correctAnswer) {
+    if (answer == widget.question.correctAnswer) {
       setState(() {
         isCorrect = true;
       });
     }
 
     widget.onChange(
-        widget.question.topicId, widget.question.id, value, isCorrect);
+        widget.question.topicId, widget.question.id, answer, isCorrect);
   }
 
   @override
@@ -230,8 +230,8 @@ class _QuizQuestion extends State<QuizQuestion> {
               return RadioButton(
                 answer: widget.question.answers.elementAt(index),
                 groupValue: _answer,
-                onChange: (value) {
-                  onChange(value, index);
+                onChange: (answer) {
+                  onChange(answer, index);
                 },
                 isSelected: isSelected[index],
                 isSubmitted: widget.isQuizSubmitted,

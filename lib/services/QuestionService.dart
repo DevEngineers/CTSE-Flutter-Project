@@ -23,9 +23,9 @@ const List<Question> q = [
       correctAnswer: '44')
 ];
 
-class QuestionServie {
+class QuestionService {
   static const String endpoint = "";
-  const QuestionServie();
+  const QuestionService();
 
   Future<List<Question>?> getQuestions() async {
     // final response = await get(Uri.parse(endpoint).replace(queryParameters: {

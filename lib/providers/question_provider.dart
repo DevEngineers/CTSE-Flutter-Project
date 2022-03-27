@@ -4,18 +4,18 @@ import 'package:flutter/cupertino.dart';
 import '../services/QuestionService.dart';
 
 class QuestionProvider extends ChangeNotifier {
-  late QuestionServie _questionServie;
+  late QuestionService _questionService;
   final Set<Question> _questions = {};
 
   Set<Question> get questions => _questions;
 
   QuestionProvider() {
-    _questionServie = const QuestionServie();
+    _questionService = const QuestionService();
     getQuestions();
   }
 
   void getQuestions() async {
-    final questions = await _questionServie.getQuestions();
+    final questions = await _questionService.getQuestions();
     _questions.addAll(questions!);
     notifyListeners();
   }

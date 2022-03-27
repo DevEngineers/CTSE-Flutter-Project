@@ -1,7 +1,9 @@
 import 'package:ctse_flutter_project/components/button.dart';
 import 'package:ctse_flutter_project/components/custom_text.dart';
 import 'package:ctse_flutter_project/model/answer.dart';
+import 'package:ctse_flutter_project/model/content.dart';
 import 'package:ctse_flutter_project/providers/answer_provider.dart';
+import 'package:ctse_flutter_project/providers/content_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +20,8 @@ class ViewQuizzes extends StatefulWidget {
 }
 
 class _ViewQuizzes extends State<ViewQuizzes> {
-  String getCompletedQuizzes(List<Answer> answers) {
-    int topicsLength = 5; // TO DO: need to get the length of all topics
+  String getCompletedQuizzes(List<Answer> answers, int topicCount) {
+    int topicsLength = topicCount;
     int completedtopicsLength =
         answers.map((e) => e.topicId).toSet().toList().length;
     return '$completedtopicsLength/$topicsLength';
@@ -41,12 +43,12 @@ class _ViewQuizzes extends State<ViewQuizzes> {
     return '$completedQuestionsLength/$questionsLength';
   }
 
-  int getProgress(List<Answer> answers) {
-    int topicsLength = 5; // TO DO: need to get the length of all topics
+  double getProgress(List<Answer> answers, int topicCount) {
+    int topicsLength = topicCount;
     int completedtopicsLength =
         answers.map((e) => e.topicId).toSet().toList().length;
     double percentage = (completedtopicsLength / topicsLength) * 100;
-    return percentage.toInt();
+    return percentage;
   }
 
   void onResetAll() {
@@ -84,6 +86,10 @@ class _ViewQuizzes extends State<ViewQuizzes> {
         Provider.of<QuestionProvider>(context).questions;
     final List<Answer> _answers =
         Provider.of<AnwserProvider>(context).storedAnswers;
+    final List<String> _topicIds =
+        Provider.of<AnwserProvider>(context).getTopicIds();
+    final Set<Content> _contents =
+        Provider.of<ContentProvider>(context).contents;
 
     return Scaffold(
         appBar: AppBar(title: const Text('View Quizzes')),
@@ -91,21 +97,26 @@ class _ViewQuizzes extends State<ViewQuizzes> {
           child: Column(
             children: [
               StatusView(
-                percentage: getProgress(_answers),
-                completedQuiz: getCompletedQuizzes(_answers),
+                percentage: getProgress(_answers, _contents.length),
+                completedQuiz: getCompletedQuizzes(_answers, _contents.length),
                 completedQuestions:
                     getCompletedQuestions(_quizQuestions, _answers),
                 onReset: onResetAll,
               ),
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: 1,
+                itemCount: _topicIds.length,
                 itemBuilder: (context, index) {
-                  return QuizView(
-                    topicId: '6238c42e523b9f9d1325096d',
-                    topic: 'Learn Git',
-                    onRetakeQuiz: onRetakeQuiz,
-                  );
+                  if (_contents.elementAt(index).id ==
+                      _topicIds.elementAt(index)) {
+                    return QuizView(
+                      topicId: _contents.elementAt(index).id,
+                      topic: _contents.elementAt(index).title,
+                      onRetakeQuiz: onRetakeQuiz,
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
                 },
               ),
             ],
@@ -115,7 +126,7 @@ class _ViewQuizzes extends State<ViewQuizzes> {
 }
 
 class StatusView extends StatelessWidget {
-  final int percentage;
+  final double percentage;
   final String completedQuiz;
   final String completedQuestions;
   final Function onReset;
@@ -177,7 +188,7 @@ class StatusView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 10, 20, 0),
                       child: CustomText(
-                        text: '$percentage% Completed',
+                        text: '${percentage.toStringAsFixed(0)}% Completed',
                         type: 'bodyTextTwo',
                         color: 'white',
                       ),
@@ -266,7 +277,8 @@ class QuizView extends StatelessWidget {
       : super(key: key);
 
   String getScore(int questionCount, int currectAnswerCount) {
-    int score = ((currectAnswerCount / questionCount) * 100).toInt();
+    String score =
+        ((currectAnswerCount / questionCount) * 100).toStringAsFixed(0);
     return '$score% Score';
   }
 

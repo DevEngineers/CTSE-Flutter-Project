@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
           title: 'CTSE Flutter Project',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+              appBarTheme: const AppBarTheme(color: Color(0xff2D4159)),
+              scaffoldBackgroundColor: const Color(0xff0F152D)),
           initialRoute: Home.routeName,
           routes: {
             Home.routeName: ((context) => const Home()),
             Quiz.routeName: ((context) => const Quiz()),
-            ViewQuizzes.routeName:((context) => const ViewQuizzes())
+            ViewQuizzes.routeName: ((context) => const ViewQuizzes())
           },
         ));
   }

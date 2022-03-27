@@ -22,7 +22,10 @@ class RadioButton extends StatelessWidget {
       width: double.maxFinite,
       height: 70,
       child: Card(
-        color: isSelected ? Colors.cyanAccent : null,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        color: isSelected ? const Color(0xffE78230) : const Color(0xffE0E2E4),
         elevation: 3,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -32,8 +35,12 @@ class RadioButton extends StatelessWidget {
               onTap: () {
                 onChange(answer);
               },
-              title: CustomText(text: answer),
+              title: CustomText(
+                text: answer,
+                color: 'black',
+              ),
               leading: Radio(
+                activeColor: Colors.black54,
                 value: answer,
                 groupValue: groupValue,
                 onChanged: (String? value) {},

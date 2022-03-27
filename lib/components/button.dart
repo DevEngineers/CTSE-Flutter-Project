@@ -18,7 +18,7 @@ class Button extends StatelessWidget {
     if (width != null) {
       return Size(width!, double.infinity);
     } else {
-      return const Size(double.maxFinite, double.infinity);
+      return const Size(double.maxFinite, 50);
     }
   }
 

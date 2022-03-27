@@ -40,8 +40,8 @@ class CustomText extends StatelessWidget {
   }
 
   Color? getTextColor() {
-    if (color == 'white') {
-      return Colors.white;
+    if (color == 'black') {
+      return Colors.black;
     } else if (color == 'gray') {
       return Colors.grey;
     } else if (color == 'green') {
@@ -49,7 +49,7 @@ class CustomText extends StatelessWidget {
     } else if (color == 'red') {
       return Colors.red;
     } else {
-      return Colors.black;
+      return Colors.white;
     }
   }
 

@@ -56,4 +56,16 @@ class AnswerService {
     }
     throw Exception('Error in getting the age');
   }
+
+  Future<bool?> deleteAllQuizzes() async {
+    final response = await delete(Uri.parse(endpoint), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    throw Exception('Error in getting the age');
+  }
 }

@@ -50,7 +50,28 @@ class _ViewQuizzes extends State<ViewQuizzes> {
   }
 
   void onResetAll() {
-    print('Reset Button Clicked');
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Learn Git'),
+              content: const Text('Are you sure to reset all'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Provider.of<AnwserProvider>(context,
+                            listen:
+                                false) //TO DO: Add Success Message after submission
+                        .restAllQuizzes();
+                    Navigator.pop(context, 'Ok');
+                  },
+                  child: const Text('Reset'),
+                ),
+              ],
+            ));
   }
 
   void onRetakeQuiz(String topicId) {
@@ -126,7 +147,7 @@ class StatusView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
-                    padding: EdgeInsets.fromLTRB(20,20,20,10),
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
                     child: CustomText(
                         text: "Summary",
                         type: 'title',

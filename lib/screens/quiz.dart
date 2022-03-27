@@ -1,5 +1,6 @@
 import 'package:ctse_flutter_project/components/button.dart';
 import 'package:ctse_flutter_project/components/custom_text.dart';
+import 'package:ctse_flutter_project/model/route_arguments.dart';
 import 'package:ctse_flutter_project/providers/answer_provider.dart';
 import 'package:ctse_flutter_project/providers/question_provider.dart';
 import 'package:ctse_flutter_project/screens/home.dart';
@@ -19,14 +20,32 @@ class Quiz extends StatefulWidget {
 }
 
 class _Quiz extends State<Quiz> {
-  String topic =
+  String _topic = '';
+  String _topicId =
       ''; //TO DO: Get the topic and topic id when navigating to quiz screen
   bool isSubmitted = false;
+  String _quizAttempt = '';
+
+  Future<void> getRouteArguments() async {
+    final RouteArguments arg =
+        ModalRoute.of(context)!.settings.arguments as RouteArguments;
+
+    setState(() {
+      _quizAttempt = arg.quizAttempt;
+      _topic = arg.topic;
+      _topicId = arg.topicId;
+    });
+  }
 
   void getSelectedAnswers(
       String topic, String question, String answer, bool isCorrect) {
-    Provider.of<AnwserProvider>(context, listen: false)
-        .storeUserAnswer(topic, question, answer, isCorrect);
+    if (_quizAttempt == 'First') {
+      Provider.of<AnwserProvider>(context, listen: false)
+          .storeUserAnswer(topic, question, answer, isCorrect);
+    } else if (_quizAttempt == 'Retake') {
+      Provider.of<AnwserProvider>(context, listen: false)
+          .updateStoredUserAnswer(topic, question, answer, isCorrect);
+    }
   }
 
   void quizTimeOut() {
@@ -85,8 +104,9 @@ class _Quiz extends State<Quiz> {
 
   @override
   Widget build(BuildContext context) {
+    getRouteArguments();
     final Set<Question> _quizQuestions =
-        Provider.of<QuestionProvider>(context).questions;
+        Provider.of<QuestionProvider>(context).getQuestionsByTopic(_topicId);
 
     return Scaffold(
         appBar: AppBar(title: const Text('Quiz')),
@@ -99,10 +119,10 @@ class _Quiz extends State<Quiz> {
                 alignment: Alignment.centerRight,
                 child: CountDownTimer(callback: quizTimeOut),
               ),
-              const Padding(
-                  padding: EdgeInsets.all(10),
+              Padding(
+                  padding: const EdgeInsets.all(10),
                   child: CustomText(
-                    text: 'Topic: Learn Basic Git',
+                    text: 'Topic: $_topic',
                     type: 'headText',
                     fontWeight: FontWeight.bold,
                   )),

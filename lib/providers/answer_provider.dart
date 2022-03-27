@@ -61,4 +61,29 @@ class AnwserProvider extends ChangeNotifier {
         .toList();
     return answers.toList();
   }
+
+  void updateStoredUserAnswer(
+      String topicId, String question, String answer, bool isCorrect) {
+    final storedAnswerIndex =
+        _storedAnswers.indexWhere((answer) => answer.questionId == question);
+
+    if (storedAnswerIndex != -1) {
+      _answers.removeAt(storedAnswerIndex);
+    }
+
+    storeUserAnswer(topicId, question, answer, isCorrect);
+    notifyListeners();
+  }
+
+  void restAllQuizzes() {
+    final response = _answerServie.deleteAllQuizzes();
+
+    response.then((value) {
+      if (value == true) {
+        _storedAnswers.clear();
+        _answers.clear();
+        notifyListeners();
+      }
+    });
+  }
 }

@@ -29,7 +29,7 @@ class _Quiz extends State<Quiz> {
         .storeUserAnswer(topic, question, answer, isCorrect);
   }
 
-  void quizTimeOut(BuildContext context) {
+  void quizTimeOut() {
     Navigator.of(context).pushNamed(Home.routeName);
   }
 
@@ -95,18 +95,17 @@ class _Quiz extends State<Quiz> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: CustomText(
-                        text: 'Learn Basic Git',
-                        type: 'headText',
-                      )),
-                  CountDownTimer(callback: quizTimeOut),
-                ],
+              Align(
+                alignment: Alignment.centerRight,
+                child: CountDownTimer(callback: quizTimeOut),
               ),
+              const Padding(
+                  padding: EdgeInsets.all(10),
+                  child: CustomText(
+                    text: 'Topic: Learn Basic Git',
+                    type: 'headText',
+                    fontWeight: FontWeight.bold,
+                  )),
               ListView.builder(
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
@@ -194,6 +193,7 @@ class _QuizQuestion extends State<QuizQuestion> {
             text: 'Question ${widget.questionNo + 1}',
             color: 'grey',
             type: 'bodyText',
+            fontWeight: FontWeight.w600,
           ),
         ),
         Padding(

@@ -20,7 +20,7 @@ class RadioButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.maxFinite,
-      height: 70,
+      height: 65,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -38,6 +38,7 @@ class RadioButton extends StatelessWidget {
               title: CustomText(
                 text: answer,
                 color: 'black',
+                fontWeight: FontWeight.bold,
               ),
               leading: Radio(
                 activeColor: Colors.black54,

@@ -65,29 +65,31 @@ class _ViewQuizzes extends State<ViewQuizzes> {
         Provider.of<AnwserProvider>(context).storedAnswers;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('View Quizzes')),
-      body: Column(
-        children: [
-          StatusView(
-            percentage: getProgress(_answers),
-            completedQuiz: getCompletedQuizzes(_answers),
-            completedQuestions: getCompletedQuestions(_quizQuestions, _answers),
-            onReset: onResetAll,
+        appBar: AppBar(title: const Text('View Quizzes')),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              StatusView(
+                percentage: getProgress(_answers),
+                completedQuiz: getCompletedQuizzes(_answers),
+                completedQuestions:
+                    getCompletedQuestions(_quizQuestions, _answers),
+                onReset: onResetAll,
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  return QuizView(
+                    topicId: '6238c42e523b9f9d1325096d',
+                    topic: 'Learn Git',
+                    onRetakeQuiz: onRetakeQuiz,
+                  );
+                },
+              ),
+            ],
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: 1,
-            itemBuilder: (context, index) {
-              return QuizView(
-                topicId: '6238c42e523b9f9d1325096d',
-                topic: 'Learn Git',
-                onRetakeQuiz: onRetakeQuiz,
-              );
-            },
-          ),
-        ],
-      ),
-    );
+        ));
   }
 }
 
@@ -111,12 +113,12 @@ class StatusView extends StatelessWidget {
 
     return SizedBox(
         width: width,
-        height: 330,
+        height: 325,
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Card(
             color: const Color(0xff30445C),
-            elevation: 3,
+            elevation: 4,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15.0),
             ),
@@ -124,7 +126,7 @@ class StatusView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Padding(
-                    padding: EdgeInsets.all(20),
+                    padding: EdgeInsets.fromLTRB(20,20,20,10),
                     child: CustomText(
                         text: "Summary",
                         type: 'title',
@@ -164,7 +166,7 @@ class StatusView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 20, 0),
                       child: Button(
-                        title: 'Rest all',
+                        title: 'Reset Quizzes',
                         onPress: () => onReset(),
                         width: 150,
                       ),
@@ -311,9 +313,9 @@ class QuizView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 20, 0),
                       child: Button(
-                        title: 'Re-take',
+                        title: 'Re-take quiz',
                         onPress: () => onRetakeQuiz(topicId),
-                        width: 100,
+                        width: 150,
                       ),
                     )),
               ],

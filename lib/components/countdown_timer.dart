@@ -15,17 +15,18 @@ class _CountDownTimer extends State<CountDownTimer> {
   @override
   void initState() {
     super.initState();
-    alert = DateTime.now().add(const Duration(seconds: 10));
+    alert = DateTime.now().add(const Duration(seconds: 300));
+    Future.delayed(const Duration(seconds: 300), () => widget.callback!());
   }
 
-  String formatDuration(Duration d) {
-    String f(int n) {
-      return n.toString().padLeft(2, '0');
+  String formatDuration(Duration duration) {
+    String formatTime(int time) {
+      return time.toString().padLeft(2, '0');
     }
 
     // round up the remaining time to the nearest second
-    d += const Duration(microseconds: 999999);
-    return "${f(d.inMinutes)}:${f(d.inSeconds % 60)}";
+    duration += const Duration(microseconds: 999999);
+    return "${formatTime(duration.inMinutes)}:${formatTime(duration.inSeconds % 60)}";
   }
 
   @override
@@ -53,14 +54,14 @@ class _CountDownTimer extends State<CountDownTimer> {
                       var now = DateTime.now();
                       var remaining = alert.difference(now);
                       return Text(
-                        formatDuration(remaining),
+                        'Time Left: ${formatDuration(remaining)}',
                         style:
-                            const TextStyle(color: Colors.white, fontSize: 20),
+                            const TextStyle(color: Colors.white, fontSize: 18),
                       );
                     })
                   : const Text(
-                      'Timout',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      '00:00',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
             )
           ],

@@ -51,29 +51,44 @@ class _ViewQuizzes extends State<ViewQuizzes> {
     return percentage;
   }
 
-  void onResetAll() {
-    showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-              title: const Text('Learn Git'),
-              content: const Text('Are you sure to reset all'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Provider.of<AnwserProvider>(context,
-                            listen:
-                                false) //TO DO: Add Success Message after submission
-                        .restAllQuizzes();
-                    Navigator.pop(context, 'Ok');
-                  },
-                  child: const Text('Reset'),
-                ),
-              ],
-            ));
+  void onResetAll(double completedQuizPrecentage) {
+    if (completedQuizPrecentage == 0) {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Learn Git'),
+                content: const Text("You don't have any attempted quizzes"),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Ok'),
+                  ),
+                ],
+              ));
+    } else {
+      showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Learn Git'),
+                content: const Text('Are you sure to reset all'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Provider.of<AnwserProvider>(context,
+                              listen:
+                                  false) //TO DO: Add Success Message after submission
+                          .restAllQuizzes();
+                      Navigator.pop(context, 'Ok');
+                    },
+                    child: const Text('Reset'),
+                  ),
+                ],
+              ));
+    }
   }
 
   void onRetakeQuiz(String topicId) {
@@ -199,7 +214,7 @@ class StatusView extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(0, 5, 20, 0),
                       child: Button(
                         title: 'Reset Quizzes',
-                        onPress: () => onReset(),
+                        onPress: () => onReset(percentage),
                         width: 150,
                       ),
                     )),

@@ -22,9 +22,9 @@ class AnwserProvider extends ChangeNotifier {
   }
 
   void storeUserAnswer(
-      String topic, String question, String answer, bool isCorrect) {
+      String id, String topic, String question, String answer, bool isCorrect) {
     Answer userAnswer = Answer(
-        id: '',
+        id: id,
         questionId: question,
         topicId: topic,
         answer: answer,
@@ -53,26 +53,16 @@ class AnwserProvider extends ChangeNotifier {
     });
   }
 
-  List<Answer> getCorrectAnswersByTopic(String topicId) {
-    Iterable<Answer> answers = _storedAnswers
-        .where((element) =>
-            element.topicId == topicId && element.isCorrect == true)
-        .toSet()
-        .toList();
-    return answers.toList();
-  }
+  void updateUserAnswers() {
+    final response = _answerService.updateAnswers(_answers);
 
-  void updateStoredUserAnswer(
-      String topicId, String question, String answer, bool isCorrect) {
-    final storedAnswerIndex =
-        _storedAnswers.indexWhere((answer) => answer.questionId == question);
-
-    if (storedAnswerIndex != -1) {
-      _answers.removeAt(storedAnswerIndex);
-    }
-
-    storeUserAnswer(topicId, question, answer, isCorrect);
-    notifyListeners();
+    response.then((value) {
+      if (value == true) {
+        _storedAnswers.addAll(_answers);
+        _answers.clear();
+        notifyListeners();
+      }
+    });
   }
 
   void restAllQuizzes() {
@@ -85,6 +75,31 @@ class AnwserProvider extends ChangeNotifier {
         notifyListeners();
       }
     });
+  }
+
+  List<Answer> getCorrectAnswersByTopic(String topicId) {
+    Iterable<Answer> answers = _storedAnswers
+        .where((element) =>
+            element.topicId == topicId && element.isCorrect == true)
+        .toSet()
+        .toList();
+    return answers.toList();
+  }
+
+  void updateStoredUserAnswer(
+      String topicId, String question, String answer, bool isCorrect) {
+    String answerId = '';
+
+    final storedAnswerIndex =
+        _storedAnswers.indexWhere((answer) => answer.questionId == question);
+
+    if (storedAnswerIndex != -1) {
+      answerId = _storedAnswers.elementAt(storedAnswerIndex).id;
+      _storedAnswers.removeAt(storedAnswerIndex);
+    }
+
+    storeUserAnswer(answerId, topicId, question, answer, isCorrect);
+    notifyListeners();
   }
 
   List<String> getTopicIds() {

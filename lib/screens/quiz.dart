@@ -41,7 +41,7 @@ class _Quiz extends State<Quiz> {
       String topic, String question, String answer, bool isCorrect) {
     if (_quizAttempt == 'First') {
       Provider.of<AnwserProvider>(context, listen: false)
-          .storeUserAnswer(topic, question, answer, isCorrect);
+          .storeUserAnswer('', topic, question, answer, isCorrect);
     } else if (_quizAttempt == 'Retake') {
       Provider.of<AnwserProvider>(context, listen: false)
           .updateStoredUserAnswer(topic, question, answer, isCorrect);
@@ -53,8 +53,9 @@ class _Quiz extends State<Quiz> {
   }
 
   void submit() {
-    int questionsLenght =
-        Provider.of<QuestionProvider>(context, listen: false).questions.length;
+    int questionsLenght = Provider.of<QuestionProvider>(context, listen: false)
+        .getQuestionsByTopic(_topicId)
+        .length;
 
     int answersLenght =
         Provider.of<AnwserProvider>(context, listen: false).answers.length;
@@ -72,10 +73,17 @@ class _Quiz extends State<Quiz> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Provider.of<AnwserProvider>(context,
-                              listen:
-                                  false) //TO DO: Add Success Message after submission
-                          .submitUserAnswers();
+                      if (_quizAttempt == 'First') {
+                        Provider.of<AnwserProvider>(context,
+                                listen:
+                                    false) //TO DO: Add Success Message after submission
+                            .submitUserAnswers();
+                      } else if (_quizAttempt == 'Retake') {
+                        Provider.of<AnwserProvider>(context,
+                                listen:
+                                    false) //TO DO: Add Success Message after submission
+                            .updateUserAnswers();
+                      }
                       setState(() {
                         isSubmitted = true;
                       });

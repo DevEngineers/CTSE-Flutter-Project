@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../drawer/my_drawer_header.dart';
-import 'learnGit/learn_git.dart';
+import 'learngit/back_end_content.dart';
+import 'learngit/front_end_content.dart';
 import 'profile/profile.dart';
 import 'question/question.dart';
 
@@ -17,13 +18,15 @@ class _HomeState extends State<Home> {
   var currentPage = DrawerSections.profile;
   @override
   Widget build(BuildContext context) {
-    StatelessWidget container = const ProfilePage();
+    StatefulWidget container = const FrontEndContent();
     if (currentPage == DrawerSections.profile) {
       container = const ProfilePage();
     } else if (currentPage == DrawerSections.learGit) {
-      container = const LearnGitPage();
+      container = const FrontEndContent();
     } else if (currentPage == DrawerSections.quesAndAnswer) {
       container = const QuestionPage();
+    } else if (currentPage == DrawerSections.backend) {
+      container = const BackEndContent();
     }
     return Scaffold(
       appBar: AppBar(
@@ -58,6 +61,8 @@ class _HomeState extends State<Home> {
           const Divider(),
           menuItem(4, "About us", Icons.home_max_outlined,
               currentPage == DrawerSections.profile ? true : false),
+          menuItem(5, "Back End", Icons.home_max_outlined,
+              currentPage == DrawerSections.backend ? true : false),
         ],
       ),
     );
@@ -78,6 +83,8 @@ class _HomeState extends State<Home> {
               currentPage = DrawerSections.quesAndAnswer;
             } else if (id == 4) {
               currentPage = DrawerSections.aboutUs;
+            } else if (id == 5) {
+              currentPage = DrawerSections.backend;
             }
           });
         }),
@@ -114,6 +121,7 @@ enum DrawerSections {
   learGit,
   quesAndAnswer,
   aboutUs,
+  backend,
 }
 
 // class Home extends StatelessWidget {

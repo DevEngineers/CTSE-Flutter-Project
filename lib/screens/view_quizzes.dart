@@ -80,17 +80,31 @@ class _ViewQuizzes extends State<ViewQuizzes> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Provider.of<AnwserProvider>(context,
-                              listen:
-                                  false) //TO DO: Add Success Message after submission
+                      Provider.of<AnwserProvider>(context, listen: false)
                           .restAllQuizzes();
                       Navigator.pop(context, 'Ok');
+                      _displaySuccessDialog(context);
                     },
                     child: const Text('Reset'),
                   ),
                 ],
               ));
     }
+  }
+
+  _displaySuccessDialog(BuildContext context) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Learn Git'),
+              content: const Text('All the attempted quizzes are removed'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Ok'),
+                ),
+              ],
+            ));
   }
 
   void onRetakeQuiz(String topic, String topicId) {

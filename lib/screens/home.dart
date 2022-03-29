@@ -1,4 +1,3 @@
-import 'package:ctse_flutter_project/screens/quiz.dart';
 import 'package:ctse_flutter_project/screens/view_quizzes.dart';
 import 'package:flutter/material.dart';
 import '../components/custom_text.dart';

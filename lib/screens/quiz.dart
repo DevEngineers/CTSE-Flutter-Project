@@ -21,8 +21,7 @@ class Quiz extends StatefulWidget {
 
 class _Quiz extends State<Quiz> {
   String _topic = '';
-  String _topicId =
-      ''; //TO DO: Get the topic and topic id when navigating to quiz screen
+  String _topicId = '';
   bool isSubmitted = false;
   String _quizAttempt = '';
 
@@ -74,14 +73,10 @@ class _Quiz extends State<Quiz> {
                   TextButton(
                     onPressed: () {
                       if (_quizAttempt == 'First') {
-                        Provider.of<AnwserProvider>(context,
-                                listen:
-                                    false) //TO DO: Add Success Message after submission
+                        Provider.of<AnwserProvider>(context, listen: false)
                             .submitUserAnswers();
                       } else if (_quizAttempt == 'Retake') {
-                        Provider.of<AnwserProvider>(context,
-                                listen:
-                                    false) //TO DO: Add Success Message after submission
+                        Provider.of<AnwserProvider>(context, listen: false)
                             .updateUserAnswers();
                       }
                       setState(() {

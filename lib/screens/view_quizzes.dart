@@ -60,7 +60,7 @@ class _ViewQuizzes extends State<ViewQuizzes> {
           builder: (BuildContext context) => AlertDialog(
                 title: const Text('Learn Git'),
                 content: const Text("You don't have any attempted quizzes"),
-                actions: <Widget>[
+                actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
                     child: const Text('Ok'),
@@ -73,7 +73,7 @@ class _ViewQuizzes extends State<ViewQuizzes> {
           builder: (BuildContext context) => AlertDialog(
                 title: const Text('Learn Git'),
                 content: const Text('Are you sure to reset all'),
-                actions: <Widget>[
+                actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
                     child: const Text('Cancel'),

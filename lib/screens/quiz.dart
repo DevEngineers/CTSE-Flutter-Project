@@ -66,7 +66,7 @@ class _Quiz extends State<Quiz> {
           builder: (BuildContext context) => AlertDialog(
                 title: const Text('Learn Git'),
                 content: const Text('Are you sure to submit'),
-                actions: <Widget>[
+                actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
                     child: const Text('Cancel'),
@@ -88,6 +88,7 @@ class _Quiz extends State<Quiz> {
                         isSubmitted = true;
                       });
                       Navigator.pop(context, 'Ok');
+                      _displaySuccessDialog(context);
                     },
                     child: const Text('Submit'),
                   ),
@@ -99,7 +100,7 @@ class _Quiz extends State<Quiz> {
         builder: (BuildContext context) => AlertDialog(
           title: const Text('Learn Git'),
           content: const Text('Please answer all questions'),
-          actions: <Widget>[
+          actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
               child: const Text('OK'),
@@ -108,6 +109,63 @@ class _Quiz extends State<Quiz> {
         ),
       );
     }
+  }
+
+  void _displaySuccessDialog(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: width,
+                  height: height / 2,
+                  child: Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Card(
+                        color: const Color(0xffCCDDE7),
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                        ),
+                        child: InkWell(
+                          onTap: () => Navigator.pop(context, 'Cancel'),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                './lib/assets/images/medal.png',
+                                width: 150,
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(8),
+                                child: CustomText(
+                                    text: 'Congratulations!!!',
+                                    type: 'title',
+                                    color: 'black',
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              const Padding(
+                                padding: EdgeInsets.all(8),
+                                child: CustomText(
+                                  text: 'Quiz completed successfully',
+                                  type: 'bodyText',
+                                  color: 'black',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                )
+              ],
+            )));
   }
 
   @override

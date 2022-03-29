@@ -4,11 +4,13 @@ import 'package:ctse_flutter_project/model/answer.dart';
 import 'package:ctse_flutter_project/model/content.dart';
 import 'package:ctse_flutter_project/providers/answer_provider.dart';
 import 'package:ctse_flutter_project/providers/content_provider.dart';
+import 'package:ctse_flutter_project/screens/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 import '../model/question.dart';
+import '../model/route_arguments.dart';
 import '../providers/question_provider.dart';
 
 class ViewQuizzes extends StatefulWidget {
@@ -91,8 +93,9 @@ class _ViewQuizzes extends State<ViewQuizzes> {
     }
   }
 
-  void onRetakeQuiz(String topicId) {
-    print(topicId);
+  void onRetakeQuiz(String topic, String topicId) {
+    Navigator.of(context).pushNamed(Quiz.routeName,
+        arguments: RouteArguments('Retake', topic, topicId));
   }
 
   @override
@@ -362,7 +365,7 @@ class QuizView extends StatelessWidget {
                       padding: const EdgeInsets.fromLTRB(0, 5, 20, 0),
                       child: Button(
                         title: 'Re-take quiz',
-                        onPress: () => onRetakeQuiz(topicId),
+                        onPress: () => onRetakeQuiz(topic, topicId),
                         width: 150,
                       ),
                     )),

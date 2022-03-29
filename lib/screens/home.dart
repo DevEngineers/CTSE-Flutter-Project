@@ -1,10 +1,10 @@
+import 'package:ctse_flutter_project/screens/quiz.dart';
 import 'package:ctse_flutter_project/screens/view_quizzes.dart';
 import 'package:flutter/material.dart';
-
 import '../components/custom_text.dart';
 
 class Home extends StatefulWidget {
-  static const String routeName = '/';
+  static const String routeName = '/home';
   const Home({Key? key}) : super(key: key);
 
   @override
@@ -15,7 +15,10 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Home')),
+        appBar: AppBar(
+          title: const Text('Home'),
+          automaticallyImplyLeading: false,
+        ),
         body: Column(
           children: [
             Image.asset(
@@ -26,19 +29,18 @@ class _Home extends State<Home> {
               padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
               child: Text('Learn Git',
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold
-                  )),
+                      color: Colors.white,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold)),
             ),
             const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(15),
                 child: CustomText(
-                  text: 'Home',
-                  type: 'bodyText',
-                ),
+                    text: 'Home',
+                    type: 'headText',
+                    fontWeight: FontWeight.w600),
               ),
             ),
             Flexible(
@@ -112,9 +114,18 @@ class MenuItem extends StatelessWidget {
                         padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                         child: CustomText(
                             text: name,
-                            type: 'title',
+                            type: 'headText',
                             color: 'white',
                             fontWeight: FontWeight.w600)),
+                    const Padding(
+                        padding: EdgeInsets.fromLTRB(0, 2, 5, 0),
+                        child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Icon(
+                              Icons.arrow_circle_right_sharp,
+                              size: 45,
+                              color: Color(0xffE78230),
+                            ))),
                   ],
                 ),
               )),

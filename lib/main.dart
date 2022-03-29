@@ -1,7 +1,9 @@
 import 'package:ctse_flutter_project/providers/answer_provider.dart';
+import 'package:ctse_flutter_project/providers/content_provider.dart';
 import 'package:ctse_flutter_project/providers/question_provider.dart';
 import 'package:ctse_flutter_project/screens/home.dart';
 import 'package:ctse_flutter_project/screens/quiz.dart';
+import 'package:ctse_flutter_project/screens/view_quizzes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
@@ -24,17 +26,21 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<AnwserProvider>(
             create: (context) => AnwserProvider(),
           ),
+          ChangeNotifierProvider<ContentProvider>(
+            create: (context) => ContentProvider(),
+          ),
         ],
         child: MaterialApp(
           title: 'CTSE Flutter Project',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+              appBarTheme: const AppBarTheme(color: Color(0xff2D4159)),
+              scaffoldBackgroundColor: const Color(0xff0F152D)),
           initialRoute: Home.routeName,
           routes: {
             Home.routeName: ((context) => const Home()),
-            Quiz.routeName: ((context) => const Quiz())
+            Quiz.routeName: ((context) => const Quiz()),
+            ViewQuizzes.routeName: ((context) => const ViewQuizzes())
           },
         ));
   }

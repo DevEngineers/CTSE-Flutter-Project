@@ -4,8 +4,10 @@ class CustomText extends StatelessWidget {
   final String text;
   final String? type;
   final String? color;
+  final FontWeight? fontWeight;
 
-  const CustomText({Key? key, required this.text, this.type, this.color})
+  const CustomText(
+      {Key? key, required this.text, this.type, this.color, this.fontWeight})
       : super(key: key);
 
   double getTextType() {
@@ -38,8 +40,8 @@ class CustomText extends StatelessWidget {
   }
 
   Color? getTextColor() {
-    if (color == 'white') {
-      return Colors.white;
+    if (color == 'black') {
+      return Colors.black;
     } else if (color == 'gray') {
       return Colors.grey;
     } else if (color == 'green') {
@@ -47,13 +49,16 @@ class CustomText extends StatelessWidget {
     } else if (color == 'red') {
       return Colors.red;
     } else {
-      return Colors.black;
+      return Colors.white;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Text(text,
-        style: TextStyle(fontSize: getTextType(), color: getTextColor()));
+        style: TextStyle(
+            fontSize: getTextType(),
+            color: getTextColor(),
+            fontWeight: fontWeight));
   }
 }

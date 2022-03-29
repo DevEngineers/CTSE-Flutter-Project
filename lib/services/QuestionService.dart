@@ -17,17 +17,17 @@ const List<Question> q = [
       correctAnswer: '11'),
   Question(
       id: '6238c42e523b9f9d1325096z',
-      topicId: '6238c42e523b9f9d1325096d',
+      topicId: '6238c42e523b9f9d1325096t',
       question: 'What is the git branching?3',
       answers: ['33', '44'],
       correctAnswer: '44')
 ];
 
-class QuestionServie {
+class QuestionService {
   static const String endpoint = "";
-  const QuestionServie();
+  const QuestionService();
 
-  Future<List<Question>?> getQuestions(String topicId) async {
+  Future<List<Question>?> getQuestions() async {
     // final response = await get(Uri.parse(endpoint).replace(queryParameters: {
     //   "topic": topicId,
     // }));

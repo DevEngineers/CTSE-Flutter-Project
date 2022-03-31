@@ -1,29 +1,7 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart';
 import '../model/answer.dart';
-
-const List<Answer> q = [
-  Answer(
-      id: "623a09111b634fdb2c6f789f",
-      topicId: "6238c42e523b9f9d1325096d",
-      questionId: "623905c080c1fe96e840b431",
-      answer: "1",
-      isCorrect: true),
-  Answer(
-      id: "623a09111b634fdb2c6f789w",
-      topicId: "6238c42e523b9f9d1325096d",
-      questionId: "623905c080c1fe96e840b432",
-      answer: "2",
-      isCorrect: true),
-  Answer(
-      id: "623a09111b634fdb2c6f789z",
-      topicId: "6238c42e523b9f9d1325096t",
-      questionId: "623905c080c1fe96e840b433",
-      answer: "3",
-      isCorrect: false)
-];
 
 class AnswerService {
   static String endpoint = '${dotenv.env['API_URL']}/answer';

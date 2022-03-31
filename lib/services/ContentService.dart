@@ -12,7 +12,7 @@ const List<Content> q = [
 ];
 
 class ContentService {
-  static String endpoint = '${dotenv.env['API_URL']}/answer';
+  static String endpoint = '${dotenv.env['API_URL']}/content';
   const ContentService();
 
   Future<List<Content>> getCotnents() async {

@@ -3,6 +3,7 @@ import 'package:ctse_flutter_project/providers/content_provider.dart';
 import 'package:ctse_flutter_project/providers/question_provider.dart';
 import 'package:ctse_flutter_project/screens/home.dart';
 import 'package:ctse_flutter_project/screens/quiz.dart';
+import 'package:ctse_flutter_project/screens/splash_screen.dart';
 import 'package:ctse_flutter_project/screens/view_quizzes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -36,8 +37,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
               appBarTheme: const AppBarTheme(color: Color(0xff2D4159)),
               scaffoldBackgroundColor: const Color(0xff0F152D)),
-          initialRoute: Home.routeName,
+          initialRoute: SplashScreen.routeName,
           routes: {
+            SplashScreen.routeName: ((context) => const SplashScreen()),
             Home.routeName: ((context) => const Home()),
             Quiz.routeName: ((context) => const Quiz()),
             ViewQuizzes.routeName: ((context) => const ViewQuizzes())

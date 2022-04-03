@@ -37,38 +37,36 @@ class FrontEndItem extends StatelessWidget {
   }
 
   Widget cartItem(context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                model!.title!,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+    return SizedBox(
+      height: 100,
+      child: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  model!.title!,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "${model!.content}",
-                maxLines: 2,
-                style: const TextStyle(color: Colors.black),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "${model!.content}",
+                  maxLines: 2,
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

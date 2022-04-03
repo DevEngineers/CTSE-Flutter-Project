@@ -1,5 +1,4 @@
 import 'package:ctse_flutter_project/screens/home.dart';
-import 'package:ctse_flutter_project/screens/learngit/back_end_content.dart';
 import 'package:ctse_flutter_project/screens/learngit/content.dart';
 import 'package:ctse_flutter_project/screens/learngit/content_add_edit.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
       initialRoute: Home.routeName,
       routes: {
         Home.routeName: ((context) => const Home()),
-        '/learn-git': (context) => const BackEndContent(),
         '/add-product': (context) => const ProductAddEdit(),
         '/edit-product': (context) => const ProductAddEdit(),
         '/content': (context) => const Content(),

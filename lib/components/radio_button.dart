@@ -23,7 +23,7 @@ class RadioButton extends StatelessWidget {
       height: 65,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(25.0),
         ),
         color: isSelected ? const Color(0xffE78230) : const Color(0xffE0E2E4),
         elevation: 3,

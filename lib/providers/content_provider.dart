@@ -20,6 +20,6 @@ class ContentProvider extends ChangeNotifier {
   }
 
   Content? getContentsByIds(String id) {
-    return _contents.lookup((content) => content.id == id);
+    return _contents.singleWhere((content) => content.id == id);
   }
 }

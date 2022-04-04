@@ -1,3 +1,4 @@
+import 'package:ctse_flutter_project/screens/view_content.dart';
 import 'package:ctse_flutter_project/screens/view_quizzes.dart';
 import 'package:flutter/material.dart';
 import '../components/custom_text.dart';
@@ -49,7 +50,11 @@ class _Home extends State<Home> {
               children: [
                 MenuItem(
                   name: 'Tutorial',
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.of(context).pushNamed(
+                      ViewContent.routeName,
+                    );
+                  },
                   image: './lib/assets/images/tutorial.png',
                 ),
                 MenuItem(

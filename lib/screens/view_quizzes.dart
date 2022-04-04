@@ -23,10 +23,13 @@ class ViewQuizzes extends StatefulWidget {
 
 class _ViewQuizzes extends State<ViewQuizzes> {
   String getCompletedQuizzes(List<Answer> answers, int topicCount) {
-    int topicsLength = topicCount;
-    int completedTopicsLength =
-        answers.map((e) => e.topicId).toSet().toList().length;
-    return '$completedTopicsLength/$topicsLength';
+    if (topicCount == 0) {
+      return '0/0';
+    } else {
+      int completedTopicsLength =
+          answers.map((e) => e.topicId).toSet().toList().length;
+      return '$completedTopicsLength/$topicCount';
+    }
   }
 
   String getCompletedQuestions(Set<Question> questions, List<Answer> answers) {
@@ -46,11 +49,14 @@ class _ViewQuizzes extends State<ViewQuizzes> {
   }
 
   double getProgress(List<Answer> answers, int topicCount) {
-    int topicsLength = topicCount;
-    int completedTopicsLength =
-        answers.map((e) => e.topicId).toSet().toList().length;
-    double percentage = (completedTopicsLength / topicsLength) * 100;
-    return percentage;
+    if (topicCount == 0) {
+      return 0;
+    } else {
+      int completedTopicsLength =
+          answers.map((e) => e.topicId).toSet().toList().length;
+      double percentage = (completedTopicsLength / topicCount) * 100;
+      return percentage;
+    }
   }
 
   void onResetAll(double completedQuizPercentage) {
@@ -135,22 +141,29 @@ class _ViewQuizzes extends State<ViewQuizzes> {
                     getCompletedQuestions(_quizQuestions, _answers),
                 onReset: onResetAll,
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: _topicIds.length,
-                itemBuilder: (context, index) {
-                  if (_contents.elementAt(index).id ==
-                      _topicIds.elementAt(index)) {
-                    return QuizView(
-                      topicId: _contents.elementAt(index).id,
-                      topic: _contents.elementAt(index).title,
-                      onRetakeQuiz: onRetakeQuiz,
-                    );
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
-              ),
+              _topicIds.isEmpty
+                  ? const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: CustomText(
+                        text: "You don't have any attempted quizzes",
+                        type: 'bodyTextTwo',
+                      ))
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _topicIds.length,
+                      itemBuilder: (context, index) {
+                        if (_contents.elementAt(index).id ==
+                            _topicIds.elementAt(index)) {
+                          return QuizView(
+                            topicId: _contents.elementAt(index).id,
+                            topic: _contents.elementAt(index).title,
+                            onRetakeQuiz: onRetakeQuiz,
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
             ],
           ),
         ));

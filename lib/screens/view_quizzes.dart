@@ -24,9 +24,9 @@ class ViewQuizzes extends StatefulWidget {
 class _ViewQuizzes extends State<ViewQuizzes> {
   String getCompletedQuizzes(List<Answer> answers, int topicCount) {
     int topicsLength = topicCount;
-    int completedtopicsLength =
+    int completedTopicsLength =
         answers.map((e) => e.topicId).toSet().toList().length;
-    return '$completedtopicsLength/$topicsLength';
+    return '$completedTopicsLength/$topicsLength';
   }
 
   String getCompletedQuestions(Set<Question> questions, List<Answer> answers) {
@@ -47,14 +47,14 @@ class _ViewQuizzes extends State<ViewQuizzes> {
 
   double getProgress(List<Answer> answers, int topicCount) {
     int topicsLength = topicCount;
-    int completedtopicsLength =
+    int completedTopicsLength =
         answers.map((e) => e.topicId).toSet().toList().length;
-    double percentage = (completedtopicsLength / topicsLength) * 100;
+    double percentage = (completedTopicsLength / topicsLength) * 100;
     return percentage;
   }
 
-  void onResetAll(double completedQuizPrecentage) {
-    if (completedQuizPrecentage == 0) {
+  void onResetAll(double completedQuizPercentage) {
+    if (completedQuizPercentage == 0) {
       showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
@@ -308,9 +308,9 @@ class QuizView extends StatelessWidget {
       required this.topicId})
       : super(key: key);
 
-  String getScore(int questionCount, int currectAnswerCount) {
+  String getScore(int questionCount, int correctAnswerCount) {
     String score =
-        ((currectAnswerCount / questionCount) * 100).toStringAsFixed(0);
+        ((correctAnswerCount / questionCount) * 100).toStringAsFixed(0);
     return '$score% Score';
   }
 
@@ -320,7 +320,7 @@ class QuizView extends StatelessWidget {
     final int noOfQuestions = Provider.of<QuestionProvider>(context)
         .getQuestionsByTopic(topicId)
         .length;
-    final int currectAnswers = Provider.of<AnswerProvider>(context)
+    final int correctAnswers = Provider.of<AnswerProvider>(context)
         .getCorrectAnswersByTopic(topicId)
         .length;
 
@@ -358,7 +358,7 @@ class QuizView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: CustomText(
-                        text: getScore(noOfQuestions, currectAnswers),
+                        text: getScore(noOfQuestions, correctAnswers),
                         type: 'bodyText',
                         color: 'white',
                       ),
@@ -368,7 +368,7 @@ class QuizView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: CustomText(
-                        text: '$currectAnswers/$noOfQuestions Currect Answer',
+                        text: '$correctAnswers/$noOfQuestions Correct Answer',
                         type: 'bodyText',
                         color: 'white',
                       ),

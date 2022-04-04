@@ -52,14 +52,14 @@ class _Quiz extends State<Quiz> {
   }
 
   void submit() {
-    int questionsLenght = Provider.of<QuestionProvider>(context, listen: false)
+    int questionsLength = Provider.of<QuestionProvider>(context, listen: false)
         .getQuestionsByTopic(_topicId)
         .length;
 
-    int answersLenght =
+    int answersLength =
         Provider.of<AnswerProvider>(context, listen: false).answers.length;
 
-    if (questionsLenght == answersLenght) {
+    if (questionsLength == answersLength) {
       showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(

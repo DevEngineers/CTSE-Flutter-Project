@@ -2,7 +2,7 @@ import 'package:ctse_flutter_project/model/answer.dart';
 import 'package:ctse_flutter_project/services/AnswerService.dart';
 import 'package:flutter/cupertino.dart';
 
-class AnwserProvider extends ChangeNotifier {
+class AnswerProvider extends ChangeNotifier {
   late AnswerService _answerService;
   final List<Answer> _storedAnswers = [];
   final List<Answer> _answers = [];
@@ -10,7 +10,7 @@ class AnwserProvider extends ChangeNotifier {
   List<Answer> get answers => _answers;
   List<Answer> get storedAnswers => _storedAnswers;
 
-  AnwserProvider() {
+  AnswerProvider() {
     _answerService = const AnswerService();
     getStoredAnswers();
   }

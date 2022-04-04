@@ -39,10 +39,10 @@ class _Quiz extends State<Quiz> {
   void getSelectedAnswers(
       String topic, String question, String answer, bool isCorrect) {
     if (_quizAttempt == 'First') {
-      Provider.of<AnwserProvider>(context, listen: false)
+      Provider.of<AnswerProvider>(context, listen: false)
           .storeUserAnswer('', topic, question, answer, isCorrect);
     } else if (_quizAttempt == 'Retake') {
-      Provider.of<AnwserProvider>(context, listen: false)
+      Provider.of<AnswerProvider>(context, listen: false)
           .updateStoredUserAnswer(topic, question, answer, isCorrect);
     }
   }
@@ -57,7 +57,7 @@ class _Quiz extends State<Quiz> {
         .length;
 
     int answersLenght =
-        Provider.of<AnwserProvider>(context, listen: false).answers.length;
+        Provider.of<AnswerProvider>(context, listen: false).answers.length;
 
     if (questionsLenght == answersLenght) {
       showDialog<String>(
@@ -73,10 +73,10 @@ class _Quiz extends State<Quiz> {
                   TextButton(
                     onPressed: () {
                       if (_quizAttempt == 'First') {
-                        Provider.of<AnwserProvider>(context, listen: false)
+                        Provider.of<AnswerProvider>(context, listen: false)
                             .submitUserAnswers();
                       } else if (_quizAttempt == 'Retake') {
-                        Provider.of<AnwserProvider>(context, listen: false)
+                        Provider.of<AnswerProvider>(context, listen: false)
                             .updateUserAnswers();
                       }
                       setState(() {

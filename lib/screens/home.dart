@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import 'package:ctse_flutter_project/screens/view_content.dart';
+=======
+>>>>>>> origin/master
 import 'package:ctse_flutter_project/screens/view_quizzes.dart';
 import 'package:flutter/material.dart';
 import '../components/custom_text.dart';

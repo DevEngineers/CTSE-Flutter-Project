@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initializeProviders() {
     Provider.of<QuestionProvider>(context);
-    Provider.of<AnwserProvider>(context);
+    Provider.of<AnswerProvider>(context);
     Provider.of<ContentProvider>(context);
   }
 

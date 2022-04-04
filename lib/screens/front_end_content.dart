@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
-import '../../model/content_model.dart';
-import '../../services/content_api_service.dart';
+import '../model/content.dart';
+import '../services/content_api_service.dart';
 import 'content_item_frontend.dart';
 
 // added for new commit

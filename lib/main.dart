@@ -1,5 +1,5 @@
 import 'package:ctse_flutter_project/screens/home.dart';
-import 'package:ctse_flutter_project/screens/learngit/content.dart';
+import 'package:ctse_flutter_project/screens/content.dart';
 import 'package:flutter/material.dart';
 
 void main() {

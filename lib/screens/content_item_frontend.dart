@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/content_model.dart';
+import '../model/content.dart';
 
 class FrontEndItem extends StatelessWidget {
   final ContentModel? model;

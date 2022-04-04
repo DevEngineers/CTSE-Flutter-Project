@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/content_model.dart';
+import '../model/content.dart';
 
 class Content extends StatelessWidget {
   const Content({Key? key}) : super(key: key);

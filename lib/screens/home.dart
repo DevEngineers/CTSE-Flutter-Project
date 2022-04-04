@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'learngit/front_end_content.dart';
+import 'front_end_content.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = '/';

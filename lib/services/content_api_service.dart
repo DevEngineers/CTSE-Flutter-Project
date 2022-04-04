@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../config.dart';
-import '../model/content_model.dart';
+import '../model/content.dart';
 
 class APIService {
   static var client = http.Client();

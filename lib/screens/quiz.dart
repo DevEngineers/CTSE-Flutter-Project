@@ -39,10 +39,10 @@ class _Quiz extends State<Quiz> {
   void getSelectedAnswers(
       String topic, String question, String answer, bool isCorrect) {
     if (_quizAttempt == 'First') {
-      Provider.of<AnwserProvider>(context, listen: false)
+      Provider.of<AnswerProvider>(context, listen: false)
           .storeUserAnswer('', topic, question, answer, isCorrect);
     } else if (_quizAttempt == 'Retake') {
-      Provider.of<AnwserProvider>(context, listen: false)
+      Provider.of<AnswerProvider>(context, listen: false)
           .updateStoredUserAnswer(topic, question, answer, isCorrect);
     }
   }
@@ -57,7 +57,7 @@ class _Quiz extends State<Quiz> {
         .length;
 
     int answersLenght =
-        Provider.of<AnwserProvider>(context, listen: false).answers.length;
+        Provider.of<AnswerProvider>(context, listen: false).answers.length;
 
     if (questionsLenght == answersLenght) {
       showDialog<String>(
@@ -73,10 +73,10 @@ class _Quiz extends State<Quiz> {
                   TextButton(
                     onPressed: () {
                       if (_quizAttempt == 'First') {
-                        Provider.of<AnwserProvider>(context, listen: false)
+                        Provider.of<AnswerProvider>(context, listen: false)
                             .submitUserAnswers();
                       } else if (_quizAttempt == 'Retake') {
-                        Provider.of<AnwserProvider>(context, listen: false)
+                        Provider.of<AnswerProvider>(context, listen: false)
                             .updateUserAnswers();
                       }
                       setState(() {
@@ -176,17 +176,26 @@ class _Quiz extends State<Quiz> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Align(
-                alignment: Alignment.centerRight,
-                child: CountDownTimer(callback: quizTimeOut),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      child: CustomText(
+                        text: 'Quiz: $_topic',
+                        type: 'headText',
+                        fontWeight: FontWeight.bold,
+                      )),
+                  CountDownTimer(callback: quizTimeOut),
+                ],
               ),
-              Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CustomText(
-                    text: 'Topic: $_topic',
-                    type: 'headText',
-                    fontWeight: FontWeight.bold,
-                  )),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+                child: Divider(
+                  thickness: 2.0,
+                  color: Colors.white,
+                ),
+              ),
               ListView.builder(
                 physics: const ClampingScrollPhysics(),
                 shrinkWrap: true,
@@ -269,7 +278,7 @@ class _QuizQuestion extends State<QuizQuestion> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
           child: CustomText(
             text: 'Question ${widget.questionNo + 1}',
             color: 'grey',

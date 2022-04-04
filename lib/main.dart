@@ -24,8 +24,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<QuestionProvider>(
             create: (context) => QuestionProvider(),
           ),
-          ChangeNotifierProvider<AnwserProvider>(
-            create: (context) => AnwserProvider(),
+          ChangeNotifierProvider<AnswerProvider>(
+            create: (context) => AnswerProvider(),
           ),
           ChangeNotifierProvider<ContentProvider>(
             create: (context) => ContentProvider(),

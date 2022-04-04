@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:timer_builder/timer_builder.dart';
 
+//Reference : https://flutteragency.com/how-to-create-timer-in-flutter/
 class CountDownTimer extends StatefulWidget {
   final Function? callback;
   const CountDownTimer({Key? key, this.callback}) : super(key: key);
@@ -40,13 +41,16 @@ class _CountDownTimer extends State<CountDownTimer> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              reached ? Icons.alarm_on : Icons.alarm,
-              color: reached ? Colors.red : Colors.green,
-              size: 25,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 20, 0, 0),
+              child: Icon(
+                reached ? Icons.alarm_on : Icons.alarm,
+                color: reached ? Colors.red : Colors.green,
+                size: 25,
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.fromLTRB(5, 20, 8, 0),
               child: !reached
                   ? TimerBuilder.periodic(const Duration(seconds: 1),
                       alignment: Duration.zero, builder: (context) {
@@ -54,7 +58,7 @@ class _CountDownTimer extends State<CountDownTimer> {
                       var now = DateTime.now();
                       var remaining = alert.difference(now);
                       return Text(
-                        'Time Left: ${formatDuration(remaining)}',
+                        '${formatDuration(remaining)} min',
                         style:
                             const TextStyle(color: Colors.white, fontSize: 18),
                       );

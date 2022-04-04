@@ -80,7 +80,7 @@ class _ViewQuizzes extends State<ViewQuizzes> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Provider.of<AnwserProvider>(context, listen: false)
+                      Provider.of<AnswerProvider>(context, listen: false)
                           .restAllQuizzes();
                       Navigator.pop(context, 'Ok');
                       _displaySuccessDialog(context);
@@ -117,9 +117,9 @@ class _ViewQuizzes extends State<ViewQuizzes> {
     final Set<Question> _quizQuestions =
         Provider.of<QuestionProvider>(context).questions;
     final List<Answer> _answers =
-        Provider.of<AnwserProvider>(context).storedAnswers;
+        Provider.of<AnswerProvider>(context).storedAnswers;
     final List<String> _topicIds =
-        Provider.of<AnwserProvider>(context).getTopicIds();
+        Provider.of<AnswerProvider>(context).getTopicIds();
     final Set<Content> _contents =
         Provider.of<ContentProvider>(context).contents;
 
@@ -320,7 +320,7 @@ class QuizView extends StatelessWidget {
     final int noOfQuestions = Provider.of<QuestionProvider>(context)
         .getQuestionsByTopic(topicId)
         .length;
-    final int currectAnswers = Provider.of<AnwserProvider>(context)
+    final int currectAnswers = Provider.of<AnswerProvider>(context)
         .getCorrectAnswersByTopic(topicId)
         .length;
 

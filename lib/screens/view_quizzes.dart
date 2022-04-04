@@ -267,19 +267,19 @@ class StatusBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 8, 8),
+                    child: CustomText(
+                      text: title,
+                      type: 'bodyTextTwo',
+                      color: 'white',
+                    )),
+                Padding(
                     padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
                     child: CustomText(
                       text: name,
                       type: 'title',
                       color: 'white',
                       fontWeight: FontWeight.bold,
-                    )),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 8, 8, 0),
-                    child: CustomText(
-                      text: title,
-                      type: 'bodyTextTwo',
-                      color: 'white',
                     )),
                 const Padding(
                     padding: EdgeInsets.fromLTRB(10, 3, 8, 0),

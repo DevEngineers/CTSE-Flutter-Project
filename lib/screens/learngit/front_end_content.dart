@@ -5,6 +5,7 @@ import '../../model/content_model.dart';
 import '../../services/content_api_service.dart';
 import 'content_item_frontend.dart';
 
+// added for new commit
 class FrontEndContent extends StatefulWidget {
   const FrontEndContent({Key? key}) : super(key: key);
 

@@ -1,29 +1,17 @@
-List<ContentModel> productsFromJson(dynamic str) =>
-    List<ContentModel>.from((str).map((x) => ContentModel.fromJson(x)));
+class Content {
+  final String id;
+  final String title;
+  final String content;
 
-class ContentModel {
-  late String? id;
-  late String? title;
-  late String? content;
-
-  ContentModel({
-    this.id,
-    this.title,
-    this.content,
+  const Content({
+    required this.id,
+    required this.title,
+    required this.content,
   });
 
-  ContentModel.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    title = json['title'];
-    content = json['content'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['title'] = title;
-    _data['content'] = content;
-
-    return _data;
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'content': content,
+      };
 }

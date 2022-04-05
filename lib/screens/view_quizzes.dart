@@ -23,10 +23,13 @@ class ViewQuizzes extends StatefulWidget {
 
 class _ViewQuizzes extends State<ViewQuizzes> {
   String getCompletedQuizzes(List<Answer> answers, int topicCount) {
-    int topicsLength = topicCount;
-    int completedtopicsLength =
-        answers.map((e) => e.topicId).toSet().toList().length;
-    return '$completedtopicsLength/$topicsLength';
+    if (topicCount == 0) {
+      return '0/0';
+    } else {
+      int completedTopicsLength =
+          answers.map((e) => e.topicId).toSet().toList().length;
+      return '$completedTopicsLength/$topicCount';
+    }
   }
 
   String getCompletedQuestions(Set<Question> questions, List<Answer> answers) {
@@ -46,15 +49,18 @@ class _ViewQuizzes extends State<ViewQuizzes> {
   }
 
   double getProgress(List<Answer> answers, int topicCount) {
-    int topicsLength = topicCount;
-    int completedtopicsLength =
-        answers.map((e) => e.topicId).toSet().toList().length;
-    double percentage = (completedtopicsLength / topicsLength) * 100;
-    return percentage;
+    if (topicCount == 0) {
+      return 0;
+    } else {
+      int completedTopicsLength =
+          answers.map((e) => e.topicId).toSet().toList().length;
+      double percentage = (completedTopicsLength / topicCount) * 100;
+      return percentage;
+    }
   }
 
-  void onResetAll(double completedQuizPrecentage) {
-    if (completedQuizPrecentage == 0) {
+  void onResetAll(double completedQuizPercentage) {
+    if (completedQuizPercentage == 0) {
       showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
@@ -124,10 +130,40 @@ class _ViewQuizzes extends State<ViewQuizzes> {
         Provider.of<ContentProvider>(context).contents;
 
     return Scaffold(
-        appBar: AppBar(title: const Text('View Quizzes')),
+        appBar: AppBar(
+          title: RichText(
+            text: TextSpan(children: [
+              const TextSpan(
+                  text: "Learn",
+                  style: TextStyle(
+                      color: Color(0xffE78230),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+              TextSpan(
+                  text: "Git",
+                  style: TextStyle(
+                      color: Colors.green[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+            ]),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 5),
+                  child: Text('Quizzes',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold))),
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Divider(
+                    thickness: 2.0,
+                    color: Colors.white,
+                  )),
               StatusView(
                 percentage: getProgress(_answers, _contents.length),
                 completedQuiz: getCompletedQuizzes(_answers, _contents.length),
@@ -135,22 +171,29 @@ class _ViewQuizzes extends State<ViewQuizzes> {
                     getCompletedQuestions(_quizQuestions, _answers),
                 onReset: onResetAll,
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: _topicIds.length,
-                itemBuilder: (context, index) {
-                  if (_contents.elementAt(index).id ==
-                      _topicIds.elementAt(index)) {
-                    return QuizView(
-                      topicId: _contents.elementAt(index).id,
-                      topic: _contents.elementAt(index).title,
-                      onRetakeQuiz: onRetakeQuiz,
-                    );
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
-              ),
+              _topicIds.isEmpty
+                  ? const Padding(
+                      padding: EdgeInsets.all(10),
+                      child: CustomText(
+                        text: "You don't have any attempted quizzes",
+                        type: 'bodyTextTwo',
+                      ))
+                  : ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _topicIds.length,
+                      itemBuilder: (context, index) {
+                        if (_contents.elementAt(index).id ==
+                            _topicIds.elementAt(index)) {
+                          return QuizView(
+                            topicId: _contents.elementAt(index).id,
+                            topic: _contents.elementAt(index).title,
+                            onRetakeQuiz: onRetakeQuiz,
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
             ],
           ),
         ));
@@ -267,19 +310,19 @@ class StatusBox extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 8, 8),
+                    child: CustomText(
+                      text: title,
+                      type: 'bodyTextTwo',
+                      color: 'white',
+                    )),
+                Padding(
                     padding: const EdgeInsets.fromLTRB(10, 5, 0, 5),
                     child: CustomText(
                       text: name,
                       type: 'title',
                       color: 'white',
                       fontWeight: FontWeight.bold,
-                    )),
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 8, 8, 0),
-                    child: CustomText(
-                      text: title,
-                      type: 'bodyTextTwo',
-                      color: 'white',
                     )),
                 const Padding(
                     padding: EdgeInsets.fromLTRB(10, 3, 8, 0),
@@ -308,9 +351,9 @@ class QuizView extends StatelessWidget {
       required this.topicId})
       : super(key: key);
 
-  String getScore(int questionCount, int currectAnswerCount) {
+  String getScore(int questionCount, int correctAnswerCount) {
     String score =
-        ((currectAnswerCount / questionCount) * 100).toStringAsFixed(0);
+        ((correctAnswerCount / questionCount) * 100).toStringAsFixed(0);
     return '$score% Score';
   }
 
@@ -320,7 +363,7 @@ class QuizView extends StatelessWidget {
     final int noOfQuestions = Provider.of<QuestionProvider>(context)
         .getQuestionsByTopic(topicId)
         .length;
-    final int currectAnswers = Provider.of<AnswerProvider>(context)
+    final int correctAnswers = Provider.of<AnswerProvider>(context)
         .getCorrectAnswersByTopic(topicId)
         .length;
 
@@ -358,7 +401,7 @@ class QuizView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: CustomText(
-                        text: getScore(noOfQuestions, currectAnswers),
+                        text: getScore(noOfQuestions, correctAnswers),
                         type: 'bodyText',
                         color: 'white',
                       ),
@@ -368,7 +411,7 @@ class QuizView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                       child: CustomText(
-                        text: '$currectAnswers/$noOfQuestions Currect Answer',
+                        text: '$correctAnswers/$noOfQuestions Correct Answer',
                         type: 'bodyText',
                         color: 'white',
                       ),

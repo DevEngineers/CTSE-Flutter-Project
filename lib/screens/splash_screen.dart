@@ -44,13 +44,24 @@ class _SplashScreenState extends State<SplashScreen> {
               './lib/assets/images/git.png',
               width: 180,
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: Text('Learn Git',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold)),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: RichText(
+                text: TextSpan(children: [
+                  const TextSpan(
+                      text: "Learn",
+                      style: TextStyle(
+                          color: Color(0xffE78230),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32)),
+                  TextSpan(
+                      text: "Git",
+                      style: TextStyle(
+                          color: Colors.green[400],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32)),
+                ]),
+              ),
             )
           ]),
     ));

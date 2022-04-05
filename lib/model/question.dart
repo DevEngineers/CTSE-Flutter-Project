@@ -2,7 +2,7 @@ class Question {
   final String id;
   final String topicId;
   final String question;
-  final List<String> answers;
+  final List<dynamic> answers;
   final String correctAnswer;
 
   const Question({

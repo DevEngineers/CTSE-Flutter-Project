@@ -14,12 +14,12 @@ class ContentProvider extends ChangeNotifier {
   }
 
   void getContents() async {
-    final answers = await _contentService.getCotnents();
+    final answers = await _contentService.getContent();
     _contents.addAll(answers);
     notifyListeners();
   }
 
   Content? getContentsByIds(String id) {
-    return _contents.lookup((content) => content.id == id);
+    return _contents.singleWhere((content) => content.id == id);
   }
 }

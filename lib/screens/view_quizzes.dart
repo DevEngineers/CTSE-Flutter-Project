@@ -130,10 +130,40 @@ class _ViewQuizzes extends State<ViewQuizzes> {
         Provider.of<ContentProvider>(context).contents;
 
     return Scaffold(
-        appBar: AppBar(title: const Text('View Quizzes')),
+        appBar: AppBar(
+          title: RichText(
+            text: TextSpan(children: [
+              const TextSpan(
+                  text: "Learn",
+                  style: TextStyle(
+                      color: Color(0xffE78230),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+              TextSpan(
+                  text: "Git",
+                  style: TextStyle(
+                      color: Colors.green[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+            ]),
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 5),
+                  child: Text('Quizzes',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold))),
+              const Padding(
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  child: Divider(
+                    thickness: 2.0,
+                    color: Colors.white,
+                  )),
               StatusView(
                 percentage: getProgress(_answers, _contents.length),
                 completedQuiz: getCompletedQuizzes(_answers, _contents.length),

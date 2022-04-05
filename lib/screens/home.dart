@@ -16,7 +16,22 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          title: RichText(
+            text: TextSpan(children: [
+              const TextSpan(
+                  text: "Learn",
+                  style: TextStyle(
+                      color: Color(0xffE78230),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+              TextSpan(
+                  text: "Git",
+                  style: TextStyle(
+                      color: Colors.green[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+            ]),
+          ),
           automaticallyImplyLeading: false,
         ),
         body: Column(
@@ -25,14 +40,24 @@ class _Home extends State<Home> {
               './lib/assets/images/git.png',
               width: 180,
             ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
-              child: Text('Learn Git',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold)),
-            ),
+            Padding(
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                child: RichText(
+                  text: TextSpan(children: [
+                    const TextSpan(
+                        text: "Learn",
+                        style: TextStyle(
+                            color: Color(0xffE78230),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 32)),
+                    TextSpan(
+                        text: "Git",
+                        style: TextStyle(
+                            color: Colors.green[400],
+                            fontWeight: FontWeight.bold,
+                            fontSize: 32)),
+                  ]),
+                )),
             const Align(
               alignment: Alignment.centerLeft,
               child: Padding(

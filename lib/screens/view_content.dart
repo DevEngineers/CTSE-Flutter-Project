@@ -29,7 +29,22 @@ class _ViewContent extends State<ViewContent> {
     Set<Content> _contents = Provider.of<ContentProvider>(context).contents;
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Tutorials'),
+          title: RichText(
+            text: TextSpan(children: [
+              const TextSpan(
+                  text: "Learn",
+                  style: TextStyle(
+                      color: Color(0xffE78230),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+              TextSpan(
+                  text: "Git",
+                  style: TextStyle(
+                      color: Colors.green[400],
+                      fontWeight: FontWeight.bold,
+                      fontSize: 22)),
+            ]),
+          ),
         ),
         body: SingleChildScrollView(
             child: Column(

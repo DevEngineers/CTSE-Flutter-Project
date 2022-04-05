@@ -15,7 +15,7 @@ class QuestionService {
 
     if (response.statusCode == 200) {
       Set<Question> questionList = {};
-      Set<dynamic> data = jsonDecode(response.body);
+      List<dynamic> data = jsonDecode(response.body);
 
       for (dynamic item in data) {
         Question answer = Question(

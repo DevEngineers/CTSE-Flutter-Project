@@ -15,7 +15,7 @@ class ContentService {
 
     if (response.statusCode == 200) {
       Set<Content> contentList = {};
-      List<dynamic> data = jsonDecode(response.body);
+      List<dynamic> data = jsonDecode(response.body)['data'];
 
       for (dynamic item in data) {
         Content content = Content(

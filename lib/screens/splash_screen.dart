@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:ctse_flutter_project/screens/home.dart';
+import 'package:ctse_flutter_project/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/answer_provider.dart';
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         const Duration(seconds: 3),
         () => Navigator.of(context).pushNamed(
-              Home.routeName,
+              LoginScreen.routeName,
             ));
   }
 

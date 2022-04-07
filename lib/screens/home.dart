@@ -36,7 +36,10 @@ class _Home extends State<Home> {
             automaticallyImplyLeading: false,
             actions: [
               IconButton(
-                icon: const Icon(Icons.account_circle_rounded),
+                icon: const Icon(
+                  Icons.account_circle_rounded,
+                  size: 30,
+                ),
                 onPressed: () {
                   Navigator.of(context).pushNamed(ViewProfile.routeName);
                 },

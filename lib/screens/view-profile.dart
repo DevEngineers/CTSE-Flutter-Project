@@ -63,7 +63,10 @@ class _ViewProfile extends State<ViewProfile> {
               ),
               actions: [
                 IconButton(
-                  icon: const Icon(Icons.power_settings_new_sharp),
+                  icon: const Icon(
+                    Icons.power_settings_new_sharp,
+                    size: 30,
+                  ),
                   onPressed: () {
                     logout();
                   },

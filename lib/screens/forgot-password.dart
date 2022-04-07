@@ -54,7 +54,7 @@ class ForgotPassword extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       child: Button(
                         title: 'Send',
-                        color: Colors.blue,
+                        color: const Color(0xffE78230),
                         onPress: () => Navigator.of(context)
                             .pushNamed(LoginScreen.routeName),
                       ),

@@ -23,4 +23,40 @@ class ProfileProvider extends ChangeNotifier {
     _profile = profile;
     notifyListeners();
   }
+
+  void updateProfile(Profile profile) async {
+    final response = await _profileService.updateProfile(profile);
+
+    if (response == true) {
+      _profile = profile;
+    }
+    notifyListeners();
+  }
+
+  void deleteProfile(String id) async {
+    final response = await _profileService.deleteProfileByID(id);
+
+    if (response == true) {
+      _profile = const Profile(
+          id: '',
+          userName: '',
+          email: '',
+          isActive: false,
+          title: '',
+          password: '');
+    }
+    notifyListeners();
+  }
+
+  void logout() {
+    _profile = const Profile(
+        id: '',
+        userName: '',
+        email: '',
+        isActive: false,
+        title: '',
+        password: '');
+
+    notifyListeners();
+  }
 }

@@ -39,6 +39,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   percent_indicator: ^4.0.0
   timer_builder: ^2.0.0
+  font_awesome_flutter: ^10.1.0
 
 dev_dependencies:
   flutter_test:

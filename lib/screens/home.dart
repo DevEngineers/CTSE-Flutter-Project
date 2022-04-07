@@ -1,3 +1,4 @@
+import 'package:ctse_flutter_project/screens/view-profile.dart';
 import 'package:ctse_flutter_project/screens/view_content.dart';
 import 'package:ctse_flutter_project/screens/view_quizzes.dart';
 import 'package:flutter/material.dart';
@@ -16,24 +17,31 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: RichText(
-            text: TextSpan(children: [
-              const TextSpan(
-                  text: "Learn",
-                  style: TextStyle(
-                      color: Color(0xffE78230),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22)),
-              TextSpan(
-                  text: "Git",
-                  style: TextStyle(
-                      color: Colors.green[400],
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22)),
+            title: RichText(
+              text: TextSpan(children: [
+                const TextSpan(
+                    text: "Learn",
+                    style: TextStyle(
+                        color: Color(0xffE78230),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22)),
+                TextSpan(
+                    text: "Git",
+                    style: TextStyle(
+                        color: Colors.green[400],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22)),
+              ]),
+            ),
+            automaticallyImplyLeading: false,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.account_circle_rounded),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(ViewProfile.routeName);
+                },
+              ),
             ]),
-          ),
-          automaticallyImplyLeading: false,
-        ),
         body: Column(
           children: [
             Image.asset(

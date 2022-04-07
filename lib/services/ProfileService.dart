@@ -20,7 +20,6 @@ class ProfileService {
       return true;
     }
     throw Exception("Error in Getting the Profile post");
-    // print(profile);
   }
 
   Future<Profile>? login(Login login) async {
@@ -49,12 +48,38 @@ class ProfileService {
             email: data['email'],
             title: data['title'],
             isActive: data['isActive'],
-            password: '');
+            password: data['password']);
 
         return profile;
       }
     }
 
     throw Exception('Error in getting the Profile');
+  }
+
+  Future<bool?> updateProfile(Profile profile) async {
+    final response = await put(Uri.parse(endpoint + '/' + profile.id),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode(profile));
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    throw Exception('Error in updating the profile');
+  }
+
+  Future<bool?> deleteProfileByID(id) async {
+    final response = await delete(Uri.parse(endpoint + '/' + id), headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    throw Exception('Error in delete profile');
   }
 }

@@ -13,6 +13,7 @@ class Answer {
       required this.isCorrect});
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'topicId': topicId,
         'questionId': questionId,
         'answer': answer,

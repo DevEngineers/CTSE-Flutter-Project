@@ -1,7 +1,7 @@
 ## Git Learn app
  - CTSE (SE4010 - Current Trends in Software Engineering) Project.
   
- Our Git tutorial app is divided into two scenario: 
+ ### Our Git tutorial app is divided into two scenario: 
  - Client users app (https://github.com/DevEngineers/Learn-Git-Client)
  - Admin user app (https://github.com/DevEngineers/Learn-Git-Admin)
 

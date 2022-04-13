@@ -1,4 +1,4 @@
-## Git Learn app
+## Git Learn app (client user)
  - CTSE (SE4010 - Current Trends in Software Engineering) Project.
   
  ### Our Git tutorial app is divided into two scenario: 

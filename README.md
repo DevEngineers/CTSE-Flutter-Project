@@ -1,16 +1,14 @@
-# ctse_flutter_project
+## Git Learn app
+ - CTSE (SE4010 - Current Trends in Software Engineering) Project.
+  
+ Our Git tutorial app is divided into two scenario: 
+ - Client users app (https://github.com/DevEngineers/Learn-Git-Client)
+ - Admin user app (https://github.com/DevEngineers/Learn-Git-Admin)
 
-A new Flutter project.
+### Component:
+- User Managment - [@nushkymohamed](https://github.com/nushkymohamed)
+- Manage App Content - [@sm2irfan](https://github.com/sm2irfan)
+- Manage Question - [@Zumry](https://github.com/Zumry)
+- Manage Quizzes answer - [@AkeelMNM](https://github.com/AkeelMNM)
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
